@@ -1,0 +1,146 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#: import random random
+
+ScreenManagement:
+
+<ScreenManagement>:
+    screen_management: screen_management
+    id: screen_management
+    transition: FadeTransition()
+    LoginScreen:
+    TasksScreen:
+    Task1:
+    Task2:
+    Task3:
+    Task4:
+    CheckScreen:
+    ChartScreen:
+
+<LoginScreen>:
+    name: 'login'
+    FloatLayout:
+        size_hint: None, None
+        size: 200, 60
+        BoxLayout:
+            pos: root.center_x - 100, root.center_y - 30
+            orientation: 'vertical'
+            TextInput:
+                id: login_text
+                multiline: False
+                hint_text: "username"
+            Button:
+                text: 'log in'
+                on_release: app.root.current = 'tasks'
+                on_release: root.login()
+<TasksScreen>:
+    name: 'tasks'
+    FloatLayout:
+        size_hint: None, None
+        size: 400, 100
+        BoxLayout:
+            pos: root.center_x - 200, root.center_y - 50
+            orientation: 'horizontal'
+            Button:
+                text: '1'
+                on_release: app.root.current = 'task_1'
+            Button:
+                text: '2'
+                on_release: app.root.current = 'task_2'
+            Button:
+                text: '3'
+                on_release: app.root.current = 'task_3'
+            Button:
+                text: '4'
+                on_release: app.root.current = 'task_4'
+
+<Task1>:
+    name: 'task_1'
+    GridLayout:
+        rows: 3
+        cols: 5
+        id: task_1_grid
+        TimeLabel:
+            id: time_label
+
+<Task2>:
+    name: 'task_2'
+    GridLayout:
+        rows: 3
+        cols: 5
+        id: task_2_grid
+        TimeLabel:
+            id: time_label
+
+<Task3>:
+    name: 'task_3'
+    GridLayout:
+        rows: 3
+        cols: 5
+        id: task_3_grid
+        TimeLabel:
+            id: time_label
+
+<Task4>:
+    name: 'task_4'
+    GridLayout:
+        rows: 3
+        cols: 5
+        id: task_4_grid
+        TimeLabel:
+            id: time_label
+
+<CheckScreen>:
+    name: 'check_screen'
+    GridLayout:
+        rows: 3
+        cols: 5
+        id: check_screen
+        Button:
+            id: check_button
+            text: 'check'
+            on_release: root.on_button()
+            on_release: app.root.current = 'chart'
+
+<ChartScreen>:
+    name: 'chart'
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            size_hint: [1, 0.8]
+            GridLayout:
+                rows: 2
+                cols: 2
+                Graph:
+                    id: graph_1
+                Graph:
+                    id: graph_2
+                Graph:
+                    id: graph_3
+                Graph:
+                    id: graph_4
+        BoxLayout:
+            size_hint: [1, 0.2]
+            orientation: 'horizontal'
+            Button:
+                text: 'new task'
+                on_release: app.root.current = 'tasks'
+
+<Graph>:
+    x_ticks_major: 1
+    y_ticks_major: 0.1
+    y_grid_label: True
+    x_grid_label: True
+    padding: 5
+    x_grid: True
+    y_grid: True
+    xmin: -0
+    ymin: 0
+    ymax: 1
+
+<ColoredLabel@Label>:
+    canvas.before:
+        Color:
+            rgba: root.randomrgba(0.6)
+        Rectangle:
+            pos: self.pos
+            size: self.size
